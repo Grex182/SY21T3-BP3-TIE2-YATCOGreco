@@ -46,6 +46,55 @@ void GameScene::update()
 			currentSpawnTimer = spawnTime;
 		}
 	}
+
+	//Check for collision
+	for (int i = 0; i < objects.size(); i++)
+	{
+		//Cast to bullet
+		Bullet* bullet = dynamic_cast<Bullet*>(objects[i]);
+
+		//Check if the cast was successful (i.e. objects[i] is a Bullet)
+		if (bullet != NULL)
+		{
+			//If the bullet is the enemy side, check against the player
+			if (bullet->getSide() == Side::ENEMY_SIDE)
+			{
+				int collision = checkCollision(
+					player->getPositionX(), player->getPositionY(), player->getWidth(), player->getHeight(),
+					bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
+					);
+
+				if (collision == 1)
+				{
+					std::cout << "Player has been hit!" << std::endl;
+					break;
+				}
+			}
+			//If the bullet is from the player side, check against ALL enemies
+			else if (bullet->getSide() == Side::PLAYER_SIDE)
+			{
+
+			}
+		}
+	}
+
+	//Memory manage bullets. When they go off screen, delete them
+	for (int i = 0; i < spawnedEnemies.size(); i++)
+	{
+		if (spawnedEnemies[i]->getPositionX() < 0)
+		{
+			//Cache the variable so we can delete it later
+			// We cant delete it after erasing from the vector (leaked pointer)
+			Enemy* enemyToErase = spawnedEnemies[i];
+			spawnedEnemies.erase(spawnedEnemies.begin() + i);
+			delete enemyToErase;
+
+			//We cant mutate (change our vector while looping inside it
+			// this might crash on the next loop iteration
+			// to counter that, we only delete one bullet per frame
+			break;
+		}
+	}
 }
 
 void GameScene::spawn()
