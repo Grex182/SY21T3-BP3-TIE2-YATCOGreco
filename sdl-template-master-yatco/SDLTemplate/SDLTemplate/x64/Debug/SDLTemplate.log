@@ -1,13 +1,4 @@
-﻿  Enemy.cpp
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Player.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.cpp(25,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.cpp(38,18): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.cpp(39,18): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.cpp(65,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.cpp(65,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  GameScene.cpp
+﻿  GameScene.cpp
 D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Player.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline

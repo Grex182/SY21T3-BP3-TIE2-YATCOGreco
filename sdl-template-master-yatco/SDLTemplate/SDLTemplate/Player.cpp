@@ -26,6 +26,7 @@ void Player::start()
 	currentReloadTime = 0;
 	specialReloadTime = 35;
 	currentSpecialReloadTime = 0;
+	isAlive = true;
 
 	// Query the texture to set our with and height
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -35,6 +36,25 @@ void Player::start()
 
 void Player::update()
 {
+	//Memory manage bullets. When they go off screen, delete them
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		if (bullets[i]->getPositionX() > SCREEN_WIDTH)
+		{
+			//Cache the variable so we can delete it later
+			// We cant delete it after erasing from the vector (leaked pointer)
+			Bullet* bulletToErase = bullets[i];
+			bullets.erase(bullets.begin() + i);
+			delete bulletToErase;
+
+			//We cant mutate (change our vector while looping inside it
+			// this might crash on the next loop iteration
+			// to counter that, we only delete one bullet per frame
+			break;
+		}
+	}
+
+	if (!isAlive) return;
 	if (app.keyboard[SDL_SCANCODE_W])
 	{
 		y -= speed;
@@ -100,28 +120,12 @@ void Player::update()
 		//After firing, reset our reload timer
 		currentSpecialReloadTime = specialReloadTime;
 	}
-
-	//Memory manage bullets. When they go off screen, delete them
-	for (int i = 0; i < bullets.size(); i++)
-	{
-		if (bullets[i]->getPositionX() > SCREEN_WIDTH)
-		{
-			//Cache the variable so we can delete it later
-			// We cant delete it after erasing from the vector (leaked pointer)
-			Bullet* bulletToErase = bullets[i];
-			bullets.erase(bullets.begin() + i);
-			delete bulletToErase;
-
-			//We cant mutate (change our vector while looping inside it
-			// this might crash on the next loop iteration
-			// to counter that, we only delete one bullet per frame
-			break;
-		}
-	}
 }
 
 void Player::draw()
 {
+	if (!isAlive) return; //if player is not alive, stop the function cause if you do return in a void class, it will just end cause it has nothing to return to
+
 	blit(texture, x, y);
 }
 
@@ -143,4 +147,14 @@ int Player::getWidth()
 int Player::getHeight()
 {
 	return height;
+}
+
+bool Player::getIsAlive()
+{
+	return isAlive;
+}
+
+void Player::doDeath()
+{
+	isAlive = false;
 }
