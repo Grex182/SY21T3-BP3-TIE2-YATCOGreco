@@ -3,6 +3,9 @@
 GameScene::GameScene()
 {
 	// Register and add game objects on constructor
+	background = new Background();
+	this->addGameObject(background);
+
 	player = new Player();
 	this->addGameObject(player);
 
@@ -11,6 +14,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	delete background;
 	delete player;
 }
 

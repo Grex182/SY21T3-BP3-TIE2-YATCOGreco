@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "GameObject.h"
+#include "Background.h"
 #include "Player.h"
 #include "Enemy.h"
 #include <vector>
@@ -15,6 +16,7 @@ public:
 	void draw();
 	void update();
 private:
+	Background* background;
 	Player* player;
 
 	//Enemy spawning logic
