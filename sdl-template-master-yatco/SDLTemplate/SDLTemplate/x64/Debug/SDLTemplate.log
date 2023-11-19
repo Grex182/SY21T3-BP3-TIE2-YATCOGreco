@@ -1,2 +1,16 @@
-﻿  Background.cpp
+﻿  GameScene.cpp
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Player.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\Enemy.h(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\PowerUpgrade.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\PowerUpgrade.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(14,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(129,114): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(129,87): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(129,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(129,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(156,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(156,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(176,100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\SDLTemplate\GameScene.cpp(176,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   SDLTemplate.vcxproj -> D:\Grex\School\Benilde\2nd Year 1st Sem\BASPRG3\SY21T3-BP3-TIE2-YATCOGreco\sdl-template-master-yatco\SDLTemplate\x64\Debug\SDL-Template.exe

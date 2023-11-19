@@ -15,7 +15,7 @@ void Enemy::start()
 	texture = loadTexture("gfx/enemy.png");
 
 	// Initialize to avoid garbage values
-	directionX = -1;
+	directionX = 1;
 	directionY = 1;
 	width = 0;
 	height = 0;
@@ -45,7 +45,7 @@ void Enemy::update()
 	if (currentDirectionChangeTime == 0)
 	{
 		//Flip directions
-		directionY = -directionY;
+		directionX = -directionX;
 		currentDirectionChangeTime = directionChangeTime;
 	}
 

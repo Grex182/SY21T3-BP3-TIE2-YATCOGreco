@@ -17,8 +17,8 @@ void Player::start()
 	texture = loadTexture("gfx/player.png");
 
 	// Initialize to avoid garbage values
-	x = 250;
-	y = 350;
+	x = 620;
+	y = 560;
 	width = 0;
 	height = 0;
 	speed = 3;
@@ -92,7 +92,7 @@ void Player::update()
 	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0)
 	{
 		SoundManager::playSound(sound);
-		Bullet* bullet = new Bullet(x + width, y - 4 + height / 2, 1, 0, 10, Side::PLAYER_SIDE);
+		Bullet* bullet = new Bullet(x + width, y - 4 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullet->start();
@@ -108,8 +108,8 @@ void Player::update()
 	{
 		SoundManager::playSound(sound);
 		SoundManager::playSound(sound);
-		Bullet* bullet = new Bullet(x + width, y + 20 + height / 2, 1, 0, 10, Side::PLAYER_SIDE);
-		Bullet* specialBullet = new Bullet(x + width, y - 18 + height / 2, 1, 0, 10, Side::PLAYER_SIDE);
+		Bullet* bullet = new Bullet(x + width, y + 20 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		Bullet* specialBullet = new Bullet(x - 30 + width, y + 20 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullets.push_back(specialBullet);
