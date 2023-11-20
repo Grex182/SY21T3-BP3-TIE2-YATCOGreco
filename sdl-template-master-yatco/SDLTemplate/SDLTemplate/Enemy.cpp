@@ -62,7 +62,7 @@ void Enemy::update()
 		calcSlope(playerTarget->getPositionX(), playerTarget->getPositionY(), x, y, &dx, &dy);
 
 		SoundManager::playSound(sound);
-		Bullet* bullet = new Bullet(30 + x - width, y - 4 + height / 2, dx, dy, 10, Side::ENEMY_SIDE);
+		Bullet* bullet = new Bullet(70 + x - width, y + 20 + height / 2, dx, dy, 10, Side::ENEMY_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullet->start();

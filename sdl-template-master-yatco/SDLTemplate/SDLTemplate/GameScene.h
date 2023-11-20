@@ -36,6 +36,7 @@ private:
 	void doSpawnLogic();
 	void doCollisionLogic();
 	void spawn();
+	void spawnBoss();
 	void despawnEnemy(Enemy* enemy);
 
 	int points;

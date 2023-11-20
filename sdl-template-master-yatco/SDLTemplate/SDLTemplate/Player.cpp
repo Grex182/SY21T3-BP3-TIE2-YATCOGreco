@@ -27,6 +27,7 @@ void Player::start()
 	specialReloadTime = 35;
 	currentSpecialReloadTime = 0;
 	isAlive = true;
+	poweredUp = false;
 
 	// Query the texture to set our with and height
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -89,10 +90,11 @@ void Player::update()
 	if (currentReloadTime > 0)
 		currentReloadTime--;
 
-	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0)
+	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && poweredUp == false)
 	{
+
 		SoundManager::playSound(sound);
-		Bullet* bullet = new Bullet(x + width, y - 4 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		Bullet* bullet = new Bullet(x - 27 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullet->start();
@@ -101,21 +103,77 @@ void Player::update()
 		currentReloadTime = reloadTime;
 	}
 
+	else if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && poweredUp == true)
+	{
+
+		SoundManager::playSound(sound);
+		Bullet* bullet = new Bullet(x - 27 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(bullet);
+		getScene()->addGameObject(bullet);
+		bullet->start();
+		SoundManager::playSound(sound);
+		Bullet* powerBullet1 = new Bullet(x - 64 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(powerBullet1);
+		getScene()->addGameObject(powerBullet1);
+		powerBullet1->start();
+		SoundManager::playSound(sound);
+		Bullet* powerBullet2 = new Bullet(x + 10 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(powerBullet2);
+		getScene()->addGameObject(powerBullet2);
+		powerBullet2->start();
+
+		//After firing, reset our reload timer
+		currentReloadTime = reloadTime;
+	}
+
 	if (currentSpecialReloadTime > 0)
 		currentSpecialReloadTime--;
 
-	if (app.keyboard[SDL_SCANCODE_G] && currentSpecialReloadTime == 0)
+	if (app.keyboard[SDL_SCANCODE_G] && currentSpecialReloadTime == 0 && poweredUp == false)
 	{
 		SoundManager::playSound(sound);
 		SoundManager::playSound(sound);
-		Bullet* bullet = new Bullet(x + width, y + 20 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
-		Bullet* specialBullet = new Bullet(x - 30 + width, y + 20 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		Bullet* bullet = new Bullet(x - 64 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		Bullet* specialBullet = new Bullet(x + 10 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullets.push_back(specialBullet);
 		getScene()->addGameObject(specialBullet);
 		bullet->start();
 		specialBullet->start();
+
+		//After firing, reset our reload timer
+		currentSpecialReloadTime = specialReloadTime;
+	}
+
+	else if (app.keyboard[SDL_SCANCODE_G] && currentSpecialReloadTime == 0 && poweredUp == true)
+	{
+
+		SoundManager::playSound(sound);
+		Bullet* bullet = new Bullet(x - 27 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(bullet);
+		getScene()->addGameObject(bullet);
+		bullet->start();
+		SoundManager::playSound(sound);
+		Bullet* powerBullet1 = new Bullet(x - 64 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(powerBullet1);
+		getScene()->addGameObject(powerBullet1);
+		powerBullet1->start();
+		SoundManager::playSound(sound);
+		Bullet* powerBullet3 = new Bullet(x - 101 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(powerBullet3);
+		getScene()->addGameObject(powerBullet3);
+		powerBullet3->start();
+		SoundManager::playSound(sound);
+		Bullet* powerBullet2 = new Bullet(x + 10 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(powerBullet2);
+		getScene()->addGameObject(powerBullet2);
+		powerBullet2->start();
+		SoundManager::playSound(sound);
+		Bullet* powerBullet4 = new Bullet(x + 47 + width, y - 35 + height / 2, 0, 1, -10, Side::PLAYER_SIDE);
+		bullets.push_back(powerBullet4);
+		getScene()->addGameObject(powerBullet4);
+		powerBullet4->start();
 
 		//After firing, reset our reload timer
 		currentSpecialReloadTime = specialReloadTime;
@@ -154,7 +212,17 @@ bool Player::getIsAlive()
 	return isAlive;
 }
 
+bool Player::getPowerUp()
+{
+	return poweredUp;
+}
+
 void Player::doDeath()
 {
 	isAlive = false;
+}
+
+void Player::doPoweredUp()
+{
+	poweredUp = true;
 }

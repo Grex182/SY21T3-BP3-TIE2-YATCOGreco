@@ -133,6 +133,8 @@ void GameScene::doCollisionLogic()
 			{
 				std::cout << "Player has upgraded!" << std::endl;
 
+				player->doPoweredUp();
+
 				delete powerupgrade;
 			}
 		}
@@ -201,6 +203,10 @@ void GameScene::spawn()
 	enemy->setPosition((rand() % 300) + 450, -34); //Original value was idk
 
 	spawnedEnemies.push_back(enemy);
+}
+
+void GameScene::spawnBoss()
+{
 }
 
 void GameScene::despawnEnemy(Enemy* enemy)
