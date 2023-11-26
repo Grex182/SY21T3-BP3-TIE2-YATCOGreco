@@ -11,7 +11,9 @@ GameScene::GameScene()
 
 	points = 0;
 	waveCounter = 0;
+	bossHealth = 4;
 	powerUpgradeSpawn = (rand() % 3) + 3;
+	bossInvulnerabilityTime = 180;
 }
 
 GameScene::~GameScene()
@@ -26,13 +28,10 @@ void GameScene::start()
 
 	// Initialize any scene logic here
 	initFonts();
-	currentSpawnTimer = 300;
-	spawnTime = 300; //Spawn time of 5 seconds 300 / 60 since its running in 60fps
-
-	for (int i = 0; i < 3; i++)
-	{
-		spawn();
-	}
+	currentSpawnTimer = 180;
+	spawnTime = 180; //Spawn time of 5 seconds 300 / 60 since its running in 60fps
+	currentBossSpawnTimer = 270;
+	bossSpawnTime = 270;
 }
 
 void GameScene::draw()
@@ -75,6 +74,23 @@ void GameScene::update()
 			break;
 		}
 	}
+
+	for (int i = 0; i < spawnedBosses.size(); i++)
+	{
+		if (spawnedBosses[i]->getPositionY() > 800)
+		{
+			//Cache the variable so we can delete it later
+			// We cant delete it after erasing from the vector (leaked pointer)
+			Boss* enemyToErase = spawnedBosses[i];
+			spawnedBosses.erase(spawnedBosses.begin() + i);
+			delete enemyToErase;
+
+			//We cant mutate (change our vector while looping inside it
+			// this might crash on the next loop iteration
+			// to counter that, we only delete one bullet per frame
+			break;
+		}
+	}
 }
 
 void GameScene::doSpawnLogic()
@@ -82,26 +98,77 @@ void GameScene::doSpawnLogic()
 	if (currentSpawnTimer > 0)
 		currentSpawnTimer--;
 
-	if (currentSpawnTimer <= 0)
+	if (currentBossSpawnTimer > 0)
+		currentBossSpawnTimer--;
+
+	if (waveCounter < 10)
 	{
-		waveCounter = waveCounter + 1;
-
-		if (waveCounter == powerUpgradeSpawn)
+		if (currentSpawnTimer <= 0)
 		{
-			powerupgrade = new PowerUpgrade();
-			this->addGameObject(powerupgrade);
+			waveCounter = waveCounter + 1;
+
+			if (waveCounter == powerUpgradeSpawn)
+			{
+				powerupgrade = new PowerUpgrade();
+				this->addGameObject(powerupgrade);
+			}
+
+			for (int i = 0; i < 3; i++)
+			{
+				spawn();
+				currentSpawnTimer = spawnTime;
+			}
 		}
+	}
 
-		for (int i = 0; i < 3; i++)
+	if (waveCounter > 10 && waveCounter != 20)
+	{
+		if (currentSpawnTimer <= 0)
 		{
-			spawn();
-			currentSpawnTimer = spawnTime;
+			waveCounter = waveCounter + 1;
+
+			for (int i = 0; i < 3; i++)
+			{
+				spawn();
+				currentSpawnTimer = spawnTime;
+			}
+		}
+	}
+
+	else if (waveCounter == 10 && spawnedBosses.empty())
+	{
+		if (currentBossSpawnTimer <= 0)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				spawnBoss();
+				currentBossSpawnTimer = bossSpawnTime;
+			}
+		}
+	}
+
+	else if (waveCounter == 20 && spawnedBosses.empty())
+	{
+		bossHealth = 4;
+
+		if (currentBossSpawnTimer <= 0)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				spawnBoss();
+				currentBossSpawnTimer = 11;
+			}
 		}
 	}
 }
 
 void GameScene::doCollisionLogic()
 {
+	if (bossInvulnerabilityTime > 0)
+	{
+		bossInvulnerabilityTime--;
+	}
+
 	//Check for collision
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -143,7 +210,7 @@ void GameScene::doCollisionLogic()
 		if (bullet != NULL)
 		{
 			//If the bullet is the enemy side, check against the player
-			if (bullet->getSide() == Side::ENEMY_SIDE)
+			if (bullet->getSide() == Side::ENEMY_SIDE || bullet->getSide() == Side::BOSS_SIDE)
 			{
 				int collision = checkCollision(
 					player->getPositionX(), player->getPositionY(), player->getWidth(), player->getHeight(),
@@ -189,6 +256,51 @@ void GameScene::doCollisionLogic()
 						break;
 					}
 				}
+
+				for (int i = 0; i < spawnedBosses.size(); i++)
+				{
+					Boss* currentBoss = spawnedBosses[i];
+
+					int collision = checkCollision(
+						currentBoss->getPositionX(), currentBoss->getPositionY(), currentBoss->getWidth(), currentBoss->getHeight(),
+						bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
+					);
+
+					if (collision == 1 && bossInvulnerabilityTime == 0)
+					{
+						bossInvulnerabilityTime = 180;
+
+						if (bossHealth <= 0)
+						{
+								Explosion* explosion = new Explosion(currentBoss->getPositionX(), currentBoss->getPositionY());
+								this->addGameObject(explosion);
+
+								explosionTime = 60;
+
+								despawnBoss(currentBoss);
+
+								currentSpawnTimer == spawnTime;
+
+								//Increment points
+								points = points + 9;
+								//IMPORTANT: only despawn one at a time,
+								//otherwise we might crash due to looping while deleting
+
+								waveCounter = 11;
+
+								break;
+						}
+						else if (bossHealth >= 1)
+						{
+							bossHealth = bossHealth - 1;
+
+								Explosion* explosion = new Explosion(currentBoss->getPositionX(), currentBoss->getPositionY());
+								this->addGameObject(explosion);
+
+								explosionTime = 20;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -207,6 +319,13 @@ void GameScene::spawn()
 
 void GameScene::spawnBoss()
 {
+	Boss* boss = new Boss();
+	this->addGameObject(boss);
+	boss->setPlayerTarget(player);
+
+	boss->setPosition(900, 75); //Original value was idk
+
+	spawnedBosses.push_back(boss);
 }
 
 void GameScene::despawnEnemy(Enemy* enemy)
@@ -228,5 +347,27 @@ void GameScene::despawnEnemy(Enemy* enemy)
 
 		spawnedEnemies.erase(spawnedEnemies.begin() + index);
 		delete enemy;
+	}
+}
+
+void GameScene::despawnBoss(Boss* boss)
+{
+	int index = -1;
+	for (int i = 0; i < spawnedBosses.size(); i++)
+	{
+		//if the pointer matches
+		if (boss == spawnedBosses[i])
+		{
+			index = i;
+			break;
+		}
+	}
+
+	//if any matches is found
+	if (index != -1)
+	{
+
+		spawnedBosses.erase(spawnedBosses.begin() + index);
+		delete boss;
 	}
 }

@@ -6,7 +6,8 @@
 enum class Side
 {
 	PLAYER_SIDE,
-	ENEMY_SIDE
+	ENEMY_SIDE,
+	BOSS_SIDE
 };
 
 class Bullet : 

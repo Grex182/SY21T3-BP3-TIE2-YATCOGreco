@@ -19,9 +19,13 @@ void Bullet::start()
 	{
 		texture = loadTexture("gfx/playerBullet.png");
 	}
-	else
+	else if (side == Side::ENEMY_SIDE)
 	{
 		texture = loadTexture("gfx/alienBullet.png");
+	}
+	else if (side == Side::BOSS_SIDE)
+	{
+		texture = loadTexture("gfx/bossBullet.png");
 	}
 
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);

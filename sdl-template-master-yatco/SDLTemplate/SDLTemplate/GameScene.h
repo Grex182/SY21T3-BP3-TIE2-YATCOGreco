@@ -8,6 +8,7 @@
 #include <vector>
 #include "text.h"
 #include "PowerUpgrade.h"
+#include "Boss.h"
 
 class GameScene : public Scene
 {
@@ -22,12 +23,19 @@ private:
 	Player* player;
 	Explosion* explosion;
 	PowerUpgrade* powerupgrade;
+	Boss* boss;
 
 	//Enemy spawning logic
 	float spawnTime;
 	float currentSpawnTimer;
+	float bossSpawnTime;
+	float currentBossSpawnTimer;
 	float explosionTime;
+	float bossHealth;
+	float bossInvulnerabilityTime;
 	std::vector<Enemy*> spawnedEnemies;
+	std::vector<Bullet*> bulletHit;
+	std::vector<Boss*> spawnedBosses;
 	std::vector<Explosion*> spawnedExplosions;
 
 	float waveCounter;
@@ -38,6 +46,7 @@ private:
 	void spawn();
 	void spawnBoss();
 	void despawnEnemy(Enemy* enemy);
+	void despawnBoss(Boss* boss);
 
 	int points;
 };

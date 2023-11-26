@@ -40,7 +40,7 @@ void Player::update()
 	//Memory manage bullets. When they go off screen, delete them
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		if (bullets[i]->getPositionX() > SCREEN_WIDTH)
+		if (bullets[i]->getPositionX() > SCREEN_WIDTH || bullets[i]->getPositionY() > SCREEN_HEIGHT)
 		{
 			//Cache the variable so we can delete it later
 			// We cant delete it after erasing from the vector (leaked pointer)
